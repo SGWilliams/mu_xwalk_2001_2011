@@ -18,7 +18,7 @@ declare @numRows int, @mu_2001 int, @mu_2011 int
 IF OBJECT_ID('tempdb.dbo.#xwalkSumm', 'U') IS NOT NULL 
   DELETE FROM #xwalkSumm; 
 ELSE
-  CREATE TABLE #xwalkSumm (mu_2001 varchar(4), mu_2011 varchar(4), xwPres varchar(3), count int);
+  CREATE TABLE #xwalkSumm (mu_2001 varchar(4), mu_2011 varchar(4), xwalk varchar(214), xwPres varchar(3), count int);
 
 -- set up table of map unit xwalks
 declare @xw table (mu_2001 int, mu_2011 int)
@@ -55,7 +55,8 @@ print 'number of records: ' + CAST(@numRows AS nvarchar)
 WHILE @numRows > 0
 BEGIN
 	-- get other info from that row
-	SELECT @mu_2011 = mu_2011 FROM @xw WHERE mu_2001 = @mu_2001
+	SELECT @mu_2011 = mu_2011
+    FROM @xw WHERE mu_2001 = @mu_2001
 	print 'Row: ' + CAST(@numRows AS nvarchar) + ', mu_2001: ' + CAST(@mu_2001 AS nvarchar) + ', mu_2011: ' + CAST(@mu_2011 AS nvarchar);
 	WITH
 	 tblMU_2001 AS (
@@ -63,47 +64,52 @@ BEGIN
 			 , SUBSTRING(p.strSpeciesModelCode,1,6) AS uc
 			 , p.strSpeciesModelCode AS smc
 			 , CAST(p.ysnPres AS nvarchar) AS ysnPres_2001
-			 --, p.ysnPresAuxiliary AS ysnPresAux_2001
+			 , d.strLSGapName AS muN_2001
 		FROM GapVert_48_2001.dbo.tblModelInfo i INNER JOIN 
 			  GapVert_48_2001.dbo.tblSppMapUnitPres p ON
 			   i.strSpeciesModelCode = p.strSpeciesModelCode INNER JOIN
 			  GapVert_48_2001.dbo.tblTaxa t ON
-			   t.strUC = i.strUC
+			   t.strUC = i.strUC INNER JOIN
+			  GapVert_48_2001.dbo.tblMapUnitDesc d ON
+			   p.intLSGapMapCode = d.intLSGapMapCode
 		WHERE t.ysnIncludeSpp = 1 AND
 			  i.ysnIncludeSubModel = 1 AND
-			  p.intLSGapMapCode = @mu_2001
+			  p.intLSGapMapCode = @mu_2001 --3108
 			  ),
 	 tblMU_2011 AS (
 		SELECT p.intLSGapMapCode AS mu_2011
 			 , SUBSTRING(p.strSpeciesModelCode,1,6) AS uc_1
 			 , p.strSpeciesModelCode AS smc_1
 			 , CAST(p.ysnPres AS nvarchar) AS ysnPres_2011
-			 --, p.ysnPresAuxiliary AS ysnPresAux_2011
+			 , d.strLSGapName AS muN_2011
 		FROM GapVert_48_2001.dbo.tblModelInfo i INNER JOIN 
 			  GapVert_48_2001.dbo.tblSppMapUnitPres p ON
 			   i.strSpeciesModelCode = p.strSpeciesModelCode INNER JOIN
 			  GapVert_48_2001.dbo.tblTaxa t ON
-			   t.strUC = i.strUC
+			   t.strUC = i.strUC INNER JOIN
+			  GapVert_48_2001.dbo.tblMapUnitDesc d ON
+			   p.intLSGapMapCode = d.intLSGapMapCode
 		WHERE t.ysnIncludeSpp = 1 AND
 			  i.ysnIncludeSubModel = 1 AND
-			  p.intLSGapMapCode = @mu_2011
+			  p.intLSGapMapCode = @mu_2011 --3110
 			  ),
 	 tblMU_XW AS (
 		SELECT CAST(mu_2001 AS varchar(4)) AS mu_2001
 			 , CAST(mu_2011 AS varchar(4)) AS mu_2011
-			 , ysnPres_2001 + '-' + ysnPres_2011 AS xwPres
-			 --, CAST(ysnPresAux_2001 AS nvarchar) + '-' + CAST(ysnPresAux_2011 AS nvarchar) AS xwPresAux
+			 , CAST(mu_2001 AS varchar(4)) + '-' + CAST(mu_2011 AS varchar(4)) + 
+		         '    ' + RTRIM(LTRIM(muN_2001)) + ' TO ' + RTRIM(LTRIM(muN_2011)) AS xwalk
+		     , ysnPres_2001 + '-' + ysnPres_2011 AS xwPres
 			 , COUNT(*) AS count
 		FROM tblMU_2001 INNER JOIN tblMU_2011 ON 
 			  smc = smc_1	  
 		GROUP BY mu_2001
 			   , mu_2011
+			   , muN_2001
+			   , muN_2011
 			   , ysnPres_2001
 			   , ysnPres_2011
-			   --, ysnPresAux_2001
-			   --, ysnPresAux_2011
 			   )
-		
+
 	 INSERT INTO #xwalkSumm
 	 SELECT * FROM tblMU_XW
 	 ORDER BY xwPres
@@ -114,12 +120,6 @@ BEGIN
 	set @numRows = @numRows - 1 
 END;
 
--- open output temp table
+-- open output temp table and pivot
 SELECT * FROM #xwalkSumm
-
-
-
--- drop the temp table if it exist
-IF OBJECT_ID('tempdb.dbo.#xwalkSumm', 'U') IS NOT NULL 
-  DROP TABLE #xwalkSumm; 
-
+PIVOT (max (count) for xwPres in ([0-0],[0-1],[1-0],[1-1])) AS xwPresence

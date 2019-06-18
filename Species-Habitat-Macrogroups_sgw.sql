@@ -1,6 +1,6 @@
 USE GapVert_48_2001;
 GO
--- Overall, edits reduced records from 19337 to 17090
+-- Overall, edits reduced records from 19337 to 16834
 WITH
 /* 
 Changed NonAncillary WHERE statement to tblModelInfo.ysnIncludeSubModel = 1 (dropped 1450 to 1078 records)
@@ -11,6 +11,7 @@ Removed intEdgeEcoWidth since it's controlled by strEdgeType (added 5 records - 
 Removed strForIntBuffer since it's controlled by strUseForInt (no change)
 Removed Patch variables except chxContPatch and chxNonCPatch (added 2 records - 1089)
 Added intElevMin < 1 (added 4 records - 1093)
+Added ysnHandModel = 0 (dropped 28 records - 1065)
 */
 NonAncillary AS (
 	SELECT	SUBSTRING(a.strSpeciesModelCode, 1, 6) AS uc,
@@ -37,6 +38,7 @@ NonAncillary AS (
 	FROM tblModelAncillary a INNER JOIN tblModelInfo i
 		  ON a.strSpeciesModelCode = i.strSpeciesModelCode
 	WHERE	i.ysnIncludeSubModel = 1 AND
+			ysnHandModel = 0 AND
 			ysnHydroFW = 0 AND 
 			ysnHydroOW = 0 AND 
 			ysnHydroWV = 0 AND 
