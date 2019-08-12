@@ -11,11 +11,12 @@
 	ids of 'boundaries' which are intersections of various data layers such as
 	LCCs, ecoregions, counties, HUCs, etc. Separate tables contain data on boundary
 	cell counts for each species (in the table lu_boundary_species) and for NVC
-	categories (in the table lu_boundary_gap_landfire).
+	categories (in the table lu_boundary_gap_lcv1).
 
 */
 -- declare variables
-declare @numRows int,  @strUC varchar(6)
+declare @numRows int, @strUC varchar(6)
+
 
 -- drop the temp tables if they exist
 IF OBJECT_ID('tempdb.dbo.#sppNoAnc', 'U') IS NOT NULL 
@@ -24,11 +25,18 @@ IF OBJECT_ID('tempdb.dbo.#sppMUMG', 'U') IS NOT NULL
   DROP TABLE #sppMUMG; 
 
 
+/*
 -- create empty temp table for sppHuc; if present - empty, if absent - create
-IF OBJECT_ID('#tempdb.dbo.sppHuc', 'U') IS NOT NULL 
-  DELETE FROM #sppHuc; 
+IF OBJECT_ID('tempdb.dbo.#sppHuc', 'U') IS NOT NULL 
+  DELETE FROM #sppHuc;
+  --DROP TABLE #sppHuc; 
 ELSE
-  CREATE TABLE #sppHuc (strUC varchar(6), strHUC12RNG varchar(12));
+  CREATE TABLE #sppHuc (strUC varchar(6), strHUC12RNG varchar(12), hab_Cnt bigint);
+*/
+-- temporarily create and maintain temp table for sppHuc in GAP_AnalyticDB (remove from final code)
+-- this is for debugging purposes and code must be hand run to avoid errors
+--CREATE TABLE GAP_AnalyticDB.dbo.tmp_sppHuc (strUC varchar(6), strHUC12RNG varchar(12), hab_Cnt bigint);
+--DROP TABLE GAP_AnalyticDB.dbo.tmp_sppHuc
 
 WITH
 -- Build table of species seasonal/regional use of ancillary data
@@ -111,7 +119,7 @@ sppAnyAnc AS (
 	GROUP BY strUC
 	)
 
--- List of species with no ancillary data use anywhere (n = 295)
+-- List of species with no ancillary data use anywhere (n = 211)
 --  and utilize at least one forested map unit
 SELECT DISTINCT
 	sppAnyAnc.strUC
@@ -124,6 +132,8 @@ FROM sppAnyAnc
 		INNER JOIN GapVert_48_2001.dbo.tblMapUnitDesc d
 		ON p.intLSGapMapCode = d.intLSGapMapCode
 WHERE anyAnc = 0 AND 
+		p.ysnPres = 1 AND
+		i.ysnIncludeSubModel = 1 AND
 		d.intForest = 1;
 
 -- Get MapUnits and MacroGroups associated with species from the GapVert_48_2001 dB
@@ -146,12 +156,16 @@ FROM GapVert_48_2001.dbo.tblSppMapUnitPres p
 		ON t.strUC = #sppNoAnc.strUC
 	 INNER JOIN GAP_AnalyticDB.dbo.gap_landfire lf
 		ON d.intLSGapMapCode = lf.level3
+	 INNER JOIN GapVert_48_2001.dbo.tblModelInfo i
+		ON p.strSpeciesModelCode = i.strSpeciesModelCode
 WHERE
-	p.ysnPres = 1
+	p.ysnPres = 1 AND
+	i.ysnIncludeSubModel = 1
 
--- Get list of Hucs that contain species habitat from GAP_AnalyticDB 
+-- Get list of Hucs that contain species range from GapVert_48_2001, 
+--   then get cell count for that spp/huc combination from GAP_AnalyticDB 
 ---------------------------------------------------------------------
--- Set up loop on sppNoAnc to run query by species (takes 1hr 25min to complete)
+-- Set up loop on sppNoAnc to run query by species (takes 1hr 5min to complete)
 -- start with lowest value
 SELECT @strUC = MIN(strUC) FROM #sppNoAnc
 print 'initial spp record: ' + @strUC
@@ -168,16 +182,53 @@ BEGIN
 	
 	WITH sppHucRng AS (
 		SELECT DISTINCT
-			(LEFT(bs.species_cd,1) + UPPER(SUBSTRING(bs.species_cd,2,4)) + RIGHT(bs.species_cd,1)) AS strUC
+		    r.strUC
 		  , h.huc12rng AS strHUC12RNG
-		FROM GAP_AnalyticDB.dbo.lu_boundary_species bs
-		INNER JOIN GAP_AnalyticDB.dbo.lu_boundary b
-			ON bs.boundary = b.value
+		  , ISNULL(CAST(SUM(bs.count) AS bigint), 0) AS 'hab_Cnt' 
+		FROM GapVert_48_2001.dbo.tblRanges r
 		INNER JOIN GAP_AnalyticDB.dbo.hucs h
+			ON h.huc12rng = r.strHUC12RNG
+		INNER JOIN GAP_AnalyticDB.dbo.lu_boundary b
 			ON b.hucs = h.objectid
-		WHERE (LEFT(bs.species_cd,1) + UPPER(SUBSTRING(bs.species_cd,2,4)) + RIGHT(bs.species_cd,1)) = @strUC)
+		INNER JOIN GAP_AnalyticDB.dbo.lu_boundary_species bs
+			ON bs.boundary = b.value AND
+			   bs.species_cd = LOWER(r.strUC)
+		WHERE r.strUC = @strUC --'bEUCDx'
+			  /*AND (r.intGapOrigin = 1 OR 
+				   r.intGapOrigin = 4)*/
+			  AND  r.intGapPres < 4
+			  AND (r.intGapSeas = 1 OR
+			       r.intGapSeas = 3 OR
+			       r.intGapSeas = 4)
+		GROUP BY
+			r.strUC
+		  , h.huc12rng
+	)
+/*
+--test
+		SELECT DISTINCT
+		    r.strUC
+		  --, h.huc12rng AS strHUC12RNG
+		  , ISNULL(CAST(SUM(bs.count) AS bigint), 0) AS 'hab_Cnt' 
+		FROM GapVert_48_2001.dbo.tblRanges r
+		INNER JOIN GAP_AnalyticDB.dbo.hucs h
+			ON h.huc12rng = r.strHUC12RNG
+		INNER JOIN GAP_AnalyticDB.dbo.lu_boundary b
+			ON b.hucs = h.objectid
+		INNER JOIN GAP_AnalyticDB.dbo.lu_boundary_species bs
+			ON bs.boundary = b.value AND
+			   bs.species_cd = LOWER(r.strUC)
+		WHERE r.strUC = 'bEATOx' --@strUC bGREPx mCHITx rYHGEx
+			  AND  r.intGapPres < 4
+			  AND (r.intGapSeas = 1 OR  -- y
+			       r.intGapSeas = 3 OR  -- w
+			       r.intGapSeas = 4)    -- s
+		GROUP BY
+			r.strUC
+		  --, h.huc12rng
+*/
 
-	 INSERT INTO #sppHuc
+	 INSERT INTO GAP_AnalyticDB.dbo.tmp_sppHuc
 	 SELECT * FROM sppHucRng
 
 	-- get the next record
@@ -188,83 +239,280 @@ END;
 ---------------------------------------------------------------------
 
 WITH
+-- Calculate the counts from the modeled MapUnits within each species' range
+-- Get distinct list of MapUnits per species
+smu AS (
+	SELECT DISTINCT
+		SppCode
+	  , MUCode
+	  , MUName
+	  , MGCode
+	  , MGName
+	FROM #sppMUMG
+	WHERE SppCode = 'bEATOx'
+	)
+,
+
+-- Add huc list from range data to MapUnits
+smuh AS (
+	SELECT 
+		smu.SppCode
+	  , smu.MUCode
+	  , smu.MUName
+	  , smu.MGCode
+	  , smu.MGName
+	  , sh.strHUC12RNG
+	FROM smu
+	INNER JOIN GAP_AnalyticDB.dbo.tmp_sppHuc sh
+		ON smu.SppCode = sh.strUC
+	)
+,
+
+-- Get MapUnit cell count within species range
+smuhc AS (
+	SELECT
+		smuh.SppCode
+	  , smuh.MUCode
+	  , smuh.strHUC12RNG
+	  , ISNULL(SUM(bl.count),0) AS 'HabMU_Cnt'
+	FROM smuh
+	LEFT JOIN GAP_AnalyticDB.dbo.hucs h
+		ON smuh.strHUC12RNG = h.huc12rng
+	LEFT JOIN GAP_AnalyticDB.dbo.lu_boundary b
+		ON h.objectid = b.hucs
+	INNER JOIN GAP_AnalyticDB.dbo.lu_boundary_gap_lcv1 bl
+		ON b.value = bl.boundary
+	INNER JOIN GAP_AnalyticDB.dbo.lcv1 lc   --IMPORT CSV OF LCv1
+		ON lc.value = bl.lcv1  
+		AND lc.value = smuh.MUCode
+	GROUP BY
+		smuh.SppCode
+	  , smuh.MUCode
+	  , smuh.strHUC12RNG	
+	)
+,
+
+-- Join to full spp/mapunit/huc list
+smuch2 AS (
+	SELECT 
+		smuh.SppCode
+	  , smuh.MUCode
+	  , smuh.MUName
+	  , smuh.MGCode
+	  , smuh.MGName
+	  , smuh.strHUC12RNG
+	  , ISNULL(smuhc.HabMU_Cnt, 0) AS 'HabMU_Cnt'
+	FROM smuh
+	LEFT JOIN smuhc
+		ON smuh.SppCode = smuhc.SppCode AND
+		   smuh.MUCode = smuhc.MUCode AND
+		   smuh.strHUC12RNG = smuhc.strHUC12RNG
+	)
+--,
+
+-- Aggregate Spp/MU/Huc to Spp/MG
+--sppMU AS (
+	SELECT 
+		smuch2.SppCode
+	  --, smuch2.MUCode
+	  --, smuch2.MUName
+	  , smuch2.MGCode
+	  , smuch2.MGName
+	  --, smuch2.strHUC12RNG
+	  , SUM(smuch2.HabMU_Cnt) AS 'HabMUMG_Cnt'
+	FROM smuch2
+	GROUP BY
+		smuch2.SppCode
+	  --, smuch2.MUCode
+	  --, smuch2.MUName
+	  , smuch2.MGCode
+	  , smuch2.MGName
+	  --, smuch2.strHUC12RNG
+	)
+,
+
+-- Calculate the counts from all the MapUnits within each species' range
 -- Get distinct list of MacroGroups per species
-sppMG AS (
+smg AS (
 	SELECT DISTINCT
 		SppCode
 	  , MGCode
 	  , MGName
 	FROM #sppMUMG
+	--WHERE SppCode = 'aARSAx'
 	)
 ,
 
--- Get MacroGroup cell count within species range
-sppHabMG AS (
+-- Join all MapUnits associated with MacroGroups
+smgmu AS (
 	SELECT 
-		sppMG.SppCode
-	  , lf.macro_cd AS MacroGroupCode
-	  , lf.nvc_macro AS MacroGroupName
-	  --, #sppHuc.strHUC12RNG
-	  , SUM(lb.count) AS HabMG_Cnt
-	  --, SUM(lb.count) * 0.00034749194269 AS HabMG_SqMile
-	FROM GAP_AnalyticDB.dbo.gap_landfire lf
-	INNER JOIN GAP_AnalyticDB.dbo.lu_boundary_gap_landfire lb
-		ON lf.value = lb.gap_landfire
-	INNER JOIN GAP_AnalyticDB.dbo.lu_boundary b
-		ON lb.boundary = b.value
-	INNER JOIN GAP_AnalyticDB.dbo.hucs h
-		ON b.hucs = h.objectid
-	INNER JOIN #sppHuc
-		ON h.huc12rng = #sppHuc.strHUC12RNG
-	INNER JOIN sppMG
-		ON sppMG.MGName = lf.nvc_macro
-	GROUP BY sppMG.SppCode
-		   , lf.macro_cd
-		   , lf.nvc_macro
-		   --, #sppHuc.strHUC12RNG
-	)
-,
-
--- Get MapUnit cell count within species range and sum by MacroGroup
-sppHabMU AS (
-	SELECT 
-		#sppMUMG.SppCode
-	  --, MUCode AS MapUnitCode
-	  --, MUName AS MapUnitName
+		SppCode
+	  , MGCode
 	  , MGName
-	  --, #sppHuc.strHUC12RNG
-	  , SUM(lb.count) AS HabMU_Cnt
-	  --, SUM(lb.count) * 0.00034749194269 AS HabMU_SqMile
-	FROM GAP_AnalyticDB.dbo.gap_landfire lf
-	INNER JOIN GAP_AnalyticDB.dbo.lu_boundary_gap_landfire lb
-		ON lf.value = lb.gap_landfire
-	INNER JOIN GAP_AnalyticDB.dbo.lu_boundary b
-		ON lb.boundary = b.value
-	INNER JOIN GAP_AnalyticDB.dbo.hucs h
-		ON b.hucs = h.objectid
-	INNER JOIN #sppHuc
-		ON h.huc12rng = #sppHuc.strHUC12RNG
-	INNER JOIN #sppMUMG
-		ON #sppMUMG.MUName = lf.ecosys_lu
-	GROUP BY #sppMUMG.SppCode
-		   --, MUCode
-		   --, MUName
-		   , MGName
-		   --, #sppHuc.strHUC12RNG
+	  , level3 AS MUCode
+	  , ecosys_lu AS MUName
+	FROM smg 
+	INNER JOIN GAP_AnalyticDB.dbo.gap_landfire lf
+		ON smg.MGCode = lf.macro_cd
 	)
+,
+
+-- Add huc list from range data to MapUnits
+smgmuh AS (
+	SELECT 
+		SppCode
+	  , MGCode
+	  , MGName
+	  , MUCode
+	  , MUName
+	  , strHUC12RNG
+	FROM smgmu
+	INNER JOIN GAP_AnalyticDB.dbo.tmp_sppHuc sh
+		ON smgmu.SppCode = sh.strUC
+	)
+,
+
+-- Tally the MapUnit counts within Hucs
+muhc AS (
+	SELECT 
+		h.huc12rng
+	  , lb.lcv1
+	  , SUM(lb.count) AS 'count'
+	FROM GAP_AnalyticDB.dbo.hucs h
+	INNER JOIN GAP_AnalyticDB.dbo.lu_boundary b
+		ON h.objectid = b.hucs
+	INNER JOIN GAP_AnalyticDB.dbo.lu_boundary_gap_lcv1 lb
+		ON b.value = lb.boundary
+	GROUP BY h.huc12rng
+		   , lb.lcv1
+	)
+,
+
+-- Join MapUnit/Huc counts to Spp/MU/Huc list
+smgmuhc AS (
+	SELECT
+		SppCode
+	  , MGCode
+	  , MGName
+	  , MUCode
+	  , MUName
+	  , strHUC12RNG
+	  , ISNULL(count, 0) AS 'HabMG_Cnt'
+	FROM smgmuh
+	LEFT JOIN muhc
+		ON strHUC12RNG = huc12rng AND
+		   MUCode = lcv1
+	)
+,
+
+-- Aggregate Spp/MU/Huc to Spp/MG
+sppMG AS (
+	SELECT 
+		SppCode
+	  --, MUCode
+	  --, MUName
+	  , MGCode
+	  , MGName
+	  --, strHUC12RNG
+	  , SUM(HabMG_Cnt) AS 'HabMG_Cnt'
+	FROM smgmuhc
+	GROUP BY
+		SppCode
+	  --, MUCode
+	  --, MUName
+	  , MGCode
+	  , MGName
+	  --, strHUC12RNG
+	)
+,
 
 -- Combine habitat count by MapUnit and MacroGroup
+sppMUMGhab AS (
+	SELECT
+		sppMU.SppCode
+	  , sppMU.MGCode
+	  , sppMU.MGName
+	  --, sppMU.strHUC12RNG
+	  , sppMU.HabMUMG_Cnt
+	  , sppMG.HabMG_Cnt
+	FROM sppMU
+		 FULL JOIN sppMG
+			ON sppMU.SppCode = sppMG.sppCode
+		   AND sppMU.MGCode = sppMG.MGCode
+		   --AND sppMU.strHUC12RNG = sppMG.strHUC12RNG
+	)
+
+-- Remove records with zero in both count fields
 SELECT
-	sppHabMG.SppCode
-  , sppHabMG.MacroGroupCode
-  , sppHabMG.MacroGroupName
-  --, FORMAT(sppHabMU.HabMU_Cnt, 'N0') AS HabMU_Cnt
-  --, FORMAT(sppHabMG.HabMG_Cnt, 'N0') AS HabMG_Cnt
-  ,	FORMAT(sppHabMU.HabMU_Cnt * 0.00034749194269, 'N1') AS HabMU_SqMile
-  ,	FORMAT(sppHabMG.HabMG_Cnt * 0.00034749194269, 'N1') AS HabMG_SqMile
-  , FORMAT((CAST(sppHabMU.HabMU_Cnt AS float) / CAST(sppHabMG.HabMG_Cnt AS float)) * 100, 'N6') AS 'MUnit/MGroup Percent Ratio'
-FROM sppHabMU 
-	 INNER JOIN sppHabMG
-		ON sppHabMU.SppCode = sppHabMG.sppCode AND
-		   sppHabMU.MGName = sppHabMG.MacroGroupName
-ORDER BY sppHabMG.SppCode, sppHabMG.MacroGroupCode
+	Sppcode
+  , MGCode
+  , MGName
+  , HabMUMG_Cnt
+  , HabMG_Cnt
+  --, FORMAT(HabMUMG_Cnt, 'N0') AS HabMUMG_Cnt
+  --, FORMAT(HabMG_Cnt, 'N0') AS HabMG_Cnt
+  ,	FORMAT(HabMUMG_Cnt * 0.09, 'N1') AS HabMUMG_Ha
+  ,	FORMAT(HabMG_Cnt * 0.09, 'N1') AS HabMG_Ha
+  , FORMAT((CAST(HabMUMG_Cnt AS float) / CAST(HabMG_Cnt AS float)) * 100, 'N0') AS 'MUMG/MG Ratio'
+FROM sppMUMGhab
+WHERE HabMUMG_Cnt > 0 OR HabMG_Cnt > 0;
+
+/*
+@@@@@@@@@@@@@@@@@@@@@@
+Checked cell counts against tiffs:
+
+SppCode				tiff				sql				% diff
+
+MISSING
+bEUCDx
+bGREPx
+mCHITx
+rYHGEx
+*/
+
+/* unfinished code
+-- Build table of MU counts per Species and MacroGroups
+WITH
+-- Get number of MU per species
+spmuc AS (
+	SELECT 
+		SppCode
+	  , count(*) AS sppMUcnt
+	FROM #sppMUMG
+	GROUP BY 
+		SppCode
+	ORDER BY SppCode
+	)
+,
+
+-- Get number of MUs in MGs selected by Spp
+WITH --@@@@@@@@@@@@@@@@@@@@@@
+--What is the count actually counting - seems there are multiples coming out of lf table
+mgmuc0 AS (
+	SELECT DISTINCT
+		SppCode
+		, smumg.MUCode
+	  , macro_cd AS MGCode
+	FROM #sppMUMG smumg
+		 INNER JOIN GAP_AnalyticDB.dbo.gap_landfire lf
+			ON smumg.MGCode = lf.macro_cd
+	WHERE SppCode like 'bCOREx'-- AND MUCode = 1201
+	GROUP BY 
+		SppCode
+		, smumg.MUCode
+	  , macro_cd
+	)
+--,
+
+-- Add the number of distinct MUs
+--mgmuc AS (
+	SELECT
+		SppCode
+	  , MGCode
+	  , COUNT(*) AS 'mgMUcnt'
+	FROM mgmuc0
+	GROUP BY
+		SppCode
+	  , MGCode
+
+*/
