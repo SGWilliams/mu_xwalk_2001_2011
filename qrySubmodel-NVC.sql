@@ -18,8 +18,8 @@
 -- drop the temp tables if they exist
 IF OBJECT_ID('tempdb.dbo.#sppNoAnc', 'U') IS NOT NULL 
   DROP TABLE #sppNoAnc; 
-IF OBJECT_ID('tempdb.dbo.#sppHABtable', 'U') IS NOT NULL 
-  DROP TABLE #sppHABtable; 
+IF OBJECT_ID('tempdb.dbo.#smHABtable', 'U') IS NOT NULL 
+  DROP TABLE #smHABtable; 
 
 print 'Creating list of non-ancillary species utilizing forest landcover.';
 
@@ -122,18 +122,19 @@ WHERE anyAnc = 0 AND
 		d.intForest = 1
 print '------------------------------------------------------------------';
 
-print 'Creating table of species habitat (MapUnit & MacroGroup) use.';
+print 'Creating table of species submodel habitat use (MapUnit & MacroGroup).';
 -- Get MapUnits and MacroGroups associated with species from the GapVert_48_2001 dB
 --	NOTE: This only uses primary map unit presence as a criterion
-SELECT DISTINCT
+SELECT
 	t.strUC AS SppCode
+  , p.strSpeciesModelCode
   , t.strSciName AS SciName
   ,	t.strComName AS ComName
   ,	d.intLSGapMapCode AS MUCode
   ,	d.strLSGapName AS MUName
   ,	lf.macro_cd AS MGCode
   ,	lf.nvc_macro AS MGName
-INTO #sppHABtable
+INTO #smHABtable
 FROM GapVert_48_2001.dbo.tblSppMapUnitPres p 
 	 INNER JOIN GapVert_48_2001.dbo.tblTaxa t
 		ON SUBSTRING(p.strSpeciesModelCode, 1, 6) = t.strUC
@@ -225,6 +226,9 @@ print '======================================='
 */
 
 
+-- Set up muliple embedded loops on sppNoAnc to run submodel query 
+--  by species, region & season to build habitat counts on MUs & MGs.
+--  (takes ??? to complete)
 /****** Loop of Spp, Region & Season  ******/
 -- declare variables
 declare @numSpp int, @spp varchar(6),
@@ -257,8 +261,6 @@ WHERE ysnIncludeSubModel = 1
 	AND (mi.strSeasonCode = 'S' OR mi.strSeasonCode = 'W' OR mi.strSeasonCode = 'Y')
 print '---------------------------------------------';
 
--- Set up muliple embedded loops on sppNoAnc to run query by species, region & season
---  (takes ??? to complete)
 -- get list of species
 print 'Set list of species for looping';
 SELECT DISTINCT strUC INTO #t1spp FROM #t0srs
@@ -273,7 +275,7 @@ BEGIN
 	-- work on selected species
 	print '==============================';
 	print 'working on species: '  + @spp;
-	-- drop the reg temp table if it exists
+	-- drop the region temp table if it exists
 	IF OBJECT_ID('tempdb.dbo.#t2reg', 'U') IS NOT NULL 
 		DROP TABLE #t2reg; 
 	-- get list of regions for the current species
@@ -286,7 +288,7 @@ BEGIN
 	-- loop region until no more records
 	WHILE @numReg > 0
 	BEGIN
-		-- drop the temp tables if they exist
+		-- drop the season temp table if it exists
 		IF OBJECT_ID('tempdb.dbo.#t3seas', 'U') IS NOT NULL 
 			DROP TABLE #t3seas; 	
 		-- work on selected region
