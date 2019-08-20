@@ -1,0 +1,212 @@
+Sppcode	strComName	strSciName	N MU Tight	N MU Expanded	HabMG_Ha (Tight)	HabMG_Ha (Expanded)	MacroGroup % Increase
+aARSAx	Arboreal Salamander	Aneides lugubris	7	16	1,652,848.9	1,652,848.9	44
+aCMSAx	Caddo Mountain Salamander	Plethodon caddoensis	4	31	151,066.4	151,066.4	40
+aCPSAx	Cumberland Plateau Salamander	Plethodon kentucki	6	15	318,961.9	318,961.9	21
+aCSLSx	California Slender Salamander	Batrachoseps attenuatus	43	87	4,369,281.4	4,369,281.4	10
+aCUTRx	Cuban Treefrog	Osteopilus septentrionalis	19	85	2,208,754.9	2,208,754.9	26
+aCVSAx	Cave Salamander	Eurycea lucifuga	31	119	20,188,087.2	20,188,087.2	10
+aERBSx	Eastern Red-backed Salamander	Plethodon cinereus	36	88	51,717,888.0	51,717,888.0	4
+aFMSAx	Fourch Mountain Salamander	Plethodon fourchensis	3	31	54,343.4	54,343.4	40
+aGBSAx	Georgia Blind Salamander	Haideotriton wallacei	6	64	52,084.2	52,084.2	89
+aHUSPx	Hurter's Spadefoot	Scaphiopus hurterii	60	195	18,887,782.9	18,887,782.9	14
+aKSSAx	Kiamichi Slimy Salamander	Plethodon kiamichi	6	51	104,127.9	104,127.9	49
+aLASAx	Louisiana Slimy Salamander	Plethodon kisatchie	12	90	982,401.6	982,401.6	4
+aLMSAx	Larch Mountain Salamander	Plethodon larselli	13	51	705,248.3	705,248.3	43
+aMXTRx	Mexican Treefrog	Smilisca baudinii	13	60	619,993.7	619,993.7	24
+aNJFRx	New Jersey Chorus Frog	Pseudacris kalmi	7	42	447,061.0	447,061.0	3
+aNRSAx	Northern Ravine Salamander	Plethodon electromorphus	14	84	3,997,158.7	3,997,158.7	25
+aNZSAx	Northern Zigzag Salamander	Plethodon dorsalis	5	51	5,437,428.3	5,437,428.3	3
+aOZSAx	Ozark Zigzag Salamander	Plethodon angusticlavius	5	39	2,849,183.2	2,849,183.2	9
+aPLSPx	Plains Spadefoot	Spea bombifrons	112	207	191,061,460.1	191,061,460.1	12
+aRHSAx	Red Hills Salamander	Phaeognathus hubrichti	2	8	26,030.2	26,030.2	0
+aRISAx	Ringed Salamander	Ambystoma annulatum	21	101	9,336,765.9	9,336,765.9	1
+aRMSAx	Rich Mountain Salamander	Plethodon ouachitae	3	31	141,363.5	141,363.5	48
+aSCSAx	Scott Bar Salamander	Plethodon asupak	29	64	116,439.8	116,439.8	11
+aSQSAx	Sequoyah Slimy Salamander	Plethodon sequoyah	10	84	85,373.6	85,373.6	20
+aSRBSx	Southern Red-backed Salamander	Plethodon serratus	37	137	8,191,797.9	8,191,797.9	19
+aSRSAx	Southern Ravine Salamander	Plethodon richmondi	20	71	6,060,864.5	6,060,864.5	5
+aSYSAx	Siskiyou Mountains Salamander	Plethodon stormi	16	45	249,861.1	249,861.1	2
+aSZSAx	Southern Zigzag Salamander	Plethodon ventralis	5	62	4,314,271.6	4,314,271.6	23
+aTCSAx	Tennessee Cave Salamander	Gyrinophilus palleucus	8	77	1,548,067.6	1,548,067.6	19
+aTESAx	Tellico Salamander	Plethodon aureolus	8	32	134,698.0	134,698.0	12
+aWASAx	Wandering Salamander	Aneides vagrans	13	48	1,360,302.6	1,360,302.6	13
+aWBSAx	Webster's Salamander	Plethodon websteri	12	69	1,736,163.9	1,736,163.9	44
+aWSSAx	Western Slimy Salamander	Plethodon albagula	35	141	8,577,326.2	8,577,326.2	28
+bACWOx	Acorn Woodpecker	Melanerpes formicivorus	29	78	9,313,821.5	9,313,821.5	53
+bALHUx	Allen's Hummingbird	Selasphorus sasin	41	79	3,101,059.8	3,101,059.8	15
+bAMWOx	American Woodcock	Scolopax minor	102	236	130,025,628.9	130,025,628.9	36
+bATSPx	American Tree Sparrow	Spizella arborea	118	300	308,798,675.1	308,798,675.1	33
+bBBWAx	Bay-breasted Warbler	Dendroica castanea	11	24	13,151,187.5	13,151,187.5	1
+bBBWOx	Black-backed Woodpecker	Picoides arcticus	65	131	37,368,477.9	37,368,477.9	33
+bBCVIx	Black-capped Vireo	Vireo atricapilla	10	20	11,611,285.7	11,611,285.7	7
+bBHGRx	Black-headed Grosbeak	Pheucticus melanocephalus	136	215	85,338,342.4	85,338,342.4	57
+bBITHx	Bicknell's Thrush	Catharus bicknelli	4	7	793,924.2	793,924.2	74
+bBLPWx	Blackpoll Warbler	Dendroica striata	5	11	1,735,199.9	1,735,199.9	50
+bBOCHx	Boreal Chickadee	Poecile hudsonica	28	80	11,002,824.4	11,002,824.4	42
+bBOWAx	Bohemian Waxwing	Bombycilla garrulus	67	134	90,171,248.9	90,171,248.9	10
+bBRBLx	Brewer's Blackbird	Euphagus cyanocephalus	302	465	359,017,528.1	359,017,528.1	20
+bBRJAx	Brown Jay	Cyanocorax morio	4	43	18,006.8	18,006.8	24
+bBRTIx	Bridled Titmouse	Baeolophus wollweberi	7	32	1,709,917.5	1,709,917.5	4
+bBTBWx	Black-throated Blue Warbler	Dendroica caerulescens	37	144	31,876,123.8	31,876,123.8	23
+bBUOWf	Florida Burrowing Owl	Athene cunicularia floridana	21	86	3,964,064.8	3,964,064.8	29
+bCBCHx	Chestnut-backed Chickadee	Poecile rufescens	44	91	23,814,153.8	23,814,153.8	27
+bCCSPx	Clay-colored Sparrow	Spizella pallida	78	165	51,219,707.7	51,219,707.7	34
+bCMWAx	Cape May Warbler	Dendroica tigrina	20	71	12,457,132.7	12,457,132.7	18
+bCOKIx	Couch's Kingbird	Tyrannus couchii	23	66	3,526,316.1	3,526,316.1	16
+bCONWx	Connecticut Warbler	Oporornis agilis	8	19	8,633,743.4	8,633,743.4	15
+bCOPAx	Common Pauraque	Nyctidromus albicollis	19	72	1,337,028.7	1,337,028.7	23
+bCOREx	Common Redpoll	Carduelis flammea	73	145	94,199,193.4	94,199,193.4	31
+bCOYEx	Common Yellowthroat	Geothlypis trichas	321	454	305,274,535.9	305,274,535.9	26
+bCWWIx	Chuck-will's-widow	Caprimulgus carolinensis	116	170	97,977,836.2	97,977,836.2	24
+bEATOx	Eastern Towhee	Pipilo erythrophthalmus	149	242	136,789,614.2	136,789,614.2	25
+bEAWPx	Eastern Wood-pewee	Contopus virens	158	218	147,904,488.8	147,904,488.8	17
+bEUCDx	Eurasian Collared-dove	Streptopelia decaocto	320	510	449,834,658.2	449,834,658.2	26
+bEVGRx	Evening Grosbeak	Coccothraustes vespertinus	136	296	112,945,412.1	112,945,412.1	43
+bEWCSx	White-crowned Sparrow	Zonotrichia leucophrys	315	460	415,195,249.9	415,195,249.9	24
+bFICRx	Fish Crow	Corvus ossifragus	137	267	69,951,110.2	69,951,110.2	31
+bFSSPx	Five-striped Sparrow	Aimophila quinquestriata	7	15	775,793.3	775,793.3	11
+bGCRFx	Gray-crowned Rosy-finch	Leucosticte tephrocotis	42	129	26,231,995.4	26,231,995.4	65
+bGFWOx	Golden-fronted Woodpecker	Melanerpes aurifrons	40	96	15,159,132.3	15,159,132.3	16
+bGKISx	Great Kiskadee	Pitangus sulphuratus	32	105	3,449,281.1	3,449,281.1	17
+bGREJx	Green Jay	Cyanocorax yncas	5	13	1,521,683.0	1,521,683.0	19
+bGREPx	Green Parakeet	Aratinga holochlora	5	19	89,571.3	89,571.3	29
+bGRPEx	Greater Pewee	Contopus pertinax	7	26	1,990,726.7	1,990,726.7	3
+bGWWAx	Golden-winged Warbler	Vermivora chrysoptera	62	153	70,318,591.4	70,318,591.4	15
+bHBKIx	Hook-billed Kite	Chondrohierax uncinatus	4	15	32,751.9	32,751.9	0
+bHETAx	Hepatic Tanager	Piranga flava	23	76	15,685,784.6	15,685,784.6	10
+bHETHx	Hermit Thrush	Catharus guttatus	227	339	177,096,269.3	177,096,269.3	28
+bHOORx	Hooded Oriole	Icterus cucullatus	11	42	6,681,188.3	6,681,188.3	48
+bHOREx	Hoary Redpoll	Carduelis hornemanni	34	66	124,085,597.4	124,085,597.4	22
+bLALOx	Lapland Longspur	Calcarius lapponicus	105	257	295,402,382.9	295,402,382.9	24
+bLASPx	Lark Sparrow	Chondestes grammacus	217	391	417,164,410.4	417,164,410.4	12
+bLCSPx	Le Conte's Sparrow	Ammodramus leconteii	74	173	74,105,228.1	74,105,228.1	28
+bLEGOx	Lesser Goldfinch	Carduelis psaltria	65	168	54,621,893.1	54,621,893.1	44
+bLUHUx	Lucifer Hummingbird	Calothorax lucifer	17	48	3,080,319.4	3,080,319.4	10
+bMAWAx	Magnolia Warbler	Dendroica magnolia	29	77	19,331,691.4	19,331,691.4	51
+bMERLx	Merlin	Falco columbarius	282	403	186,909,170.9	186,909,170.9	32
+bMOWAx	Mourning Warbler	Oporornis philadelphia	23	84	11,721,144.7	11,721,144.7	66
+bOCWAx	Orange-crowned Warbler	Vermivora celata	214	337	127,908,517.4	127,908,517.4	28
+bOLSPx	Olive Sparrow	Arremonops rufivirgatus	20	73	1,710,775.5	1,710,775.5	22
+bPHAIx	Phainopepla	Phainopepla nitens	33	95	10,155,989.4	10,155,989.4	46
+bPIGRx	Pine Grosbeak	Pinicola enucleator	142	275	92,650,647.5	92,650,647.5	34
+bPISIx	Pine Siskin	Carduelis pinus	335	472	366,272,881.7	366,272,881.7	22
+bPIWOx	Pileated Woodpecker	Dryocopus pileatus	249	325	174,876,415.8	174,876,415.8	7
+bPRFAx	Prairie Falcon	Falco mexicanus	149	224	305,201,369.7	305,201,369.7	17
+bRBPIx	Red-billed Pigeon	Patagioenas flavirostris	4	15	43,283.4	43,283.4	0
+bRCKIx	Ruby-crowned Kinglet	Regulus calendula	363	434	354,043,740.6	354,043,740.6	15
+bRLHAx	Rough-legged Hawk	Buteo lagopus	155	277	339,264,504.4	339,264,504.4	23
+bRTHUx	Ruby-throated Hummingbird	Archilochus colubris	164	238	163,144,603.5	163,144,603.5	15
+bRUHUx	Rufous Hummingbird	Selasphorus rufus	106	208	26,513,523.1	26,513,523.1	61
+bSBORx	Spot-breasted Oriole	Icterus pectoralis	15	52	487,033.6	487,033.6	21
+bSHCOx	Shiny Cowbird	Molothrus bonariensis	26	57	1,082,749.8	1,082,749.8	14
+bSNBUx	Snow Bunting	Plectrophenax nivalis	63	135	182,400,864.8	182,400,864.8	21
+bSNOWx	Snowy Owl	Bubo scandiacus	91	203	129,402,425.8	129,402,425.8	25
+bSOSPx	Song Sparrow	Melospiza melodia	293	470	325,972,929.8	325,972,929.8	35
+bSPGRx	Spruce Grouse	Falcipennis canadensis	29	56	18,446,793.8	18,446,793.8	29
+bSTFLx	Scissor-tailed Flycatcher	Tyrannus forficatus	54	139	93,660,878.6	93,660,878.6	19
+bSTJAx	Steller's Jay	Cyanocitta stelleri	72	137	83,150,732.5	83,150,732.5	15
+bSUTAx	Summer Tanager	Piranga rubra	176	317	111,553,479.6	111,553,479.6	32
+bTOWAx	Townsend's Warbler	Dendroica townsendi	57	79	33,604,250.5	33,604,250.5	11
+bTRPAx	Tropical Parula	Parula pitiayumi	11	51	1,347,491.0	1,347,491.0	18
+bVERDx	Verdin	Auriparus flaviceps	31	98	43,539,098.7	43,539,098.7	17
+bWCPIx	White-crowned Pigeon	Patagioenas leucocephala	5	7	267,805.8	267,805.8	37
+bWESJx	Western Scrub-jay	Aphelocoma californica	63	120	47,249,971.5	47,249,971.5	17
+bWITUi	Mexican Turkey	Meleagris gallopavo mexicana	11	26	647,282.9	647,282.9	0
+bWTDOx	White-tipped Dove	Leptotila verreauxi	5	11	344,303.6	344,303.6	3
+bWWCRx	White-winged Crossbill	Loxia leucoptera	89	168	64,952,394.0	64,952,394.0	38
+bYBFLx	Yellow-bellied Flycatcher	Empidonax flaviventris	5	12	7,376,729.8	7,376,729.8	56
+bYGVIx	Yellow-green Vireo	Vireo flavoviridis	14	41	44,156.0	44,156.0	27
+bYRWAx	Yellow-rumped Warbler	Dendroica coronata	436	519	389,080,317.4	389,080,317.4	15
+bYWARx	Yellow Warbler	Dendroica petechia	172	379	103,274,100.6	103,274,100.6	58
+mACSHx	Arctic Shrew	Sorex arcticus	19	33	5,678,310.8	5,678,310.8	8
+mBASHx	Barbary Sheep	Ammotragus lervia	43	120	1,316,053.7	1,316,053.7	39
+mBDSHx	Baird's Shrew	Sorex bairdi	40	91	2,516,097.6	2,516,097.6	26
+mBEDEx	Black-eared Deermouse	Peromyscus melanotis	4	10	102,999.5	102,999.5	0
+mBOGOx	Botta's Pocket Gopher	Thomomys bottae	121	223	123,859,852.5	123,859,852.5	11
+mBPGOx	Baird's Pocket Gopher	Geomys breviceps	23	65	11,418,320.6	11,418,320.6	22
+mCGGSx	Cascade Golden-mantled Ground Squirrel	Callospermophilus saturatus	47	114	2,417,085.1	2,417,085.1	24
+mCGMOx	Chihuahuan Grasshopper Mouse	Onychomys arenicola	18	49	15,530,799.0	15,530,799.0	29
+mCHITx	Chital	Axis axis	12	70	5,882,113.0	5,882,113.0	9
+mCLOBx	Curasoan Long-nosed Bat	Leptonycteris curasoae	12	31	5,028,234.7	5,028,234.7	24
+mCOORx	Coues' Oryzomys	Oryzomys couesi	6	13	23,392.2	23,392.2	0
+mCRVOx	Creeping Vole	Microtus oregoni	55	136	11,737,639.8	11,737,639.8	35
+mCSMOx	Coast Mole	Scapanus orarius	75	145	18,793,588.8	18,793,588.8	10
+mCTPGx	Central Texas Pocket Gopher	Geomys texensis	14	38	2,156,752.4	2,156,752.4	2
+mDFWOs	San Joaquin Valley Wood Rat	Neotoma fuscipes riparia	5	23	2,903.3	2,903.3	73
+mEHVOx	Eastern Heather Vole	Phenacomys ungava	7	16	440,878.9	440,878.9	3
+mESSKx	Eastern Spotted Skunk	Spilogale putorius	114	242	169,210,765.6	169,210,765.6	23
+mFBBAx	Florida Bonneted Bat	Eumops floridanus	38	141	1,959,174.2	1,959,174.2	38
+mFGSQx	Franklin's Ground Squirrel	Poliocitellus franklinii	16	33	14,083,285.1	14,083,285.1	22
+mFLDEx	Florida Deermouse	Podomys floridanus	15	40	588,353.3	588,353.3	47
+mFOSHx	Fog Shrew	Sorex sonomae	57	121	6,495,529.2	6,495,529.2	13
+mHITAx	Himalayan Tahr	Hemitragus jemlahicus	20	79	73,705.3	73,705.3	7
+mINMYx	Indiana Myotis	Myotis sodalis	120	184	32,030,916.8	32,030,916.8	14
+mJAGDc	Gulf Coast Jaguarundi	Puma yagouaroundi cacomitli	7	15	92,326.0	92,326.0	20
+mJAGDx	Jaguarundi	Puma yagouarondi	7	15	92,326.0	92,326.0	20
+mKEMYx	Keen's Myotis	Myotis keenii	16	46	1,259,268.1	1,259,268.1	39
+mLECHt	Penasco Chipmunk	Tamias minimus atristriatus	4	28	37,744.3	37,744.3	17
+mNBARx	Nine-banded Armadillo	Dasypus novemcinctus	223	333	180,457,864.9	180,457,864.9	5
+mNBLEx	Northern Bog Lemming	Synaptomys borealis	35	101	6,372,610.3	6,372,610.3	37
+mNODEx	Northwestern Deermouse	Peromyscus keeni	32	84	6,603,995.4	6,603,995.4	7
+mNOMYx	Northern Myotis	Myotis septentrionalis	153	242	107,283,687.8	107,283,687.8	11
+mNOSSx	Northern Short-tailed Shrew	Blarina brevicauda	208	332	268,862,529.0	268,862,529.0	2
+mOCELx	Ocelot	Leopardus pardalis	12	31	54,104.8	54,104.8	50
+mOLDEx	Oldfield Deermouse	Peromyscus polionotus	34	103	13,735,663.4	13,735,663.4	44
+mPASHc	Pacific Shrew (cascadensis)	Sorex pacificus cascadensis	35	98	1,902,773.3	1,902,773.3	22
+mPASHp	Pacific Shrew (pacificus)	Sorex pacificus pacificus	33	82	1,431,635.0	1,431,635.0	12
+mPASHx	Pacific Shrew	Sorex pacificus	35	98	3,334,408.2	3,334,408.2	18
+mPJMOx	Pacific Jumping Mouse	Zapus trinotatus	55	107	11,549,768.1	11,549,768.1	11
+mPMBAx	Pallas's Mastiff Bat	Molossus molossus	5	8	28,238.9	28,238.9	2
+mPRSHx	Prairie Shrew	Sorex haydeni	64	137	45,015,205.8	45,015,205.8	10
+mRBSQx	Red-bellied Squirrel	Sciurus aureogaster	5	7	18,737.3	18,737.3	8
+mSAMBx	Sambar	Rusa unicolor	66	221	4,463,912.0	4,463,912.0	2
+mSEGOx	Southeastern Pocket Gopher	Geomys pinetis	18	77	7,598,605.8	7,598,605.8	45
+mSEWEp	Point Reyes Mountain Beaver	Aplodontia rufa phaea	11	36	10,981.0	10,981.0	32
+mSTVOx	Sonoma Tree Vole	Arborimus pomo	11	36	1,511,168.8	1,511,168.8	19
+mSTWOx	Stephen's Woodrat	Neotoma stephensi	6	32	5,766,734.1	5,766,734.1	4
+mTBCRx	Tawny-bellied Cotton Rat	Sigmodon fulviventer	16	43	5,786,124.6	5,786,124.6	14
+mTXDEx	Texas Deermouse	Peromyscus attwateri	26	72	11,586,527.1	11,586,527.1	1
+mWBBAx	Wagner's Bonneted Bat	Eumops glaucinus	6	33	844,902.3	844,902.3	19
+mWGSQx	Western Gray Squirrel	Sciurus griseus	26	39	16,489,463.1	16,489,463.1	7
+mWTWOx	White-toothed Woodrat	Neotoma leucodon	69	146	26,686,099.7	26,686,099.7	6
+rBHSKx	Broad-headed Skink	Plestiodon laticeps	108	197	67,097,164.4	67,097,164.4	28
+rCAISx	Central American Indigo Snake	Drymarchon melanurus	19	65	6,884,377.7	6,884,377.7	3
+rCFLSx	Common Five-lined Skink	Plestiodon fasciatus	60	185	65,640,521.9	65,640,521.9	57
+rCHNIx	Chihuahuan Nightsnake	Hypsiglena jani	77	206	69,645,764.9	69,645,764.9	10
+rCNIGx	Coast Nightsnake	Hypsiglena ochrorhyncha	40	80	10,974,777.3	10,974,777.3	15
+rDEBRx	Dekay's Brownsnake	Storeria dekayi	307	366	297,135,695.3	297,135,695.3	3
+rDENIx	Desert Nightsnake	Hypsiglena chlorophaea	94	159	89,419,403.4	89,419,403.4	7
+rDHNSx	Dusty Hog-nosed Snake	Heterodon gloydi	36	146	4,716,361.7	4,716,361.7	17
+rEBTUb	Florida Box Turtle	Terrapene carolina bauri	19	89	4,158,979.7	4,158,979.7	37
+rFCSNx	Florida Crowned Snake	Tantilla relicta	19	67	1,151,524.9	1,151,524.9	60
+rFHSNx	Flat-headed Snake	Tantilla gracilis	66	185	59,696,907.7	59,696,907.7	6
+rFLBRx	Florida Brownsnake	Storeria victa	112	186	10,888,657.7	10,888,657.7	13
+rFLWOx	Florida Wormlizard	Rhineura floridana	16	63	1,187,135.6	1,187,135.6	68
+rFSLIx	Florida Scrub Lizard	Sceloporus woodi	9	31	324,417.0	324,417.0	52
+rFSSKx	Florida Sand Skink	Plestiodon reynoldsi	8	56	388,159.7	388,159.7	30
+rGRANx	Green Anole	Anolis carolinensis	117	217	62,909,875.3	62,909,875.3	26
+rHACOx	Harlequin Coralsnake	Micrurus fulvius	43	147	10,555,175.5	10,555,175.5	52
+rIGLIx	Island Glass Lizard	Ophisaurus compressus	27	79	2,693,151.5	2,693,151.5	54
+rLOPIx	Louisiana Pinesnake	Pituophis ruthveni	8	84	3,226,734.5	3,226,734.5	10
+rMBHSx	Mexican Black-headed Snake	Tantilla atriceps	12	45	593,061.8	593,061.8	2
+rMGLIx	Mimic Glass Lizard	Ophisaurus mimicus	15	40	5,059,791.3	5,059,791.3	45
+rMHNSx	Mexican Hog-nosed Snake	Heterodon kennerlyi	66	203	20,970,734.1	20,970,734.1	6
+rMOSKx	Mole Skink	Plestiodon egregius	32	61	4,406,264.6	4,406,264.6	46
+rPINEl	Black Pinesnake	Pituophis melanoleucus lodingi	8	51	1,654,025.0	1,654,025.0	35
+rPRSKx	Prairie Skink	Plestiodon septentrionalis	48	168	16,881,510.2	16,881,510.2	35
+rREGEx	Reef Gecko	Sphaerodactylus notatus	11	50	152,942.8	152,942.8	34
+rRRCSx	Rim Rock Crowned Snake	Tantilla oolitica	9	56	100,865.3	100,865.3	49
+rSCARx	Scarletsnake	Cemophora coccinea	90	141	44,015,938.9	44,015,938.9	26
+rSFLSx	Southeastern Five-lined Skink	Plestiodon inexpectatus	45	129	15,008,349.1	15,008,349.1	70
+rSGLIx	Slender Glass Lizard	Ophisaurus attenuatus	103	247	103,754,321.5	103,754,321.5	32
+rSHNSx	Southern Hog-nosed Snake	Heterodon simus	29	102	7,138,661.9	7,138,661.9	47
+rSLCOx	Slowinski's Cornsnake	Pantherophis slowinskii	20	102	9,429,212.4	9,429,212.4	10
+rSTELx	Spot-tailed Earless Lizard	Holbrookia lacerata	38	99	14,074,050.6	14,074,050.6	2
+rSTSNx	Short-tailed Snake	Lampropeltis extenuata	11	46	303,010.3	303,010.3	62
+rTERAx	Texas Ratsnake	Pantherophis obsoletus	49	176	61,406,263.6	61,406,263.6	14
+rTSLIx	Texas Spiny Lizard	Sceloporus olivaceus	26	142	18,538,260.2	18,538,260.2	23
+rWBHSx	Western Black-headed Snake	Tantilla planiceps	22	36	4,956,631.4	4,956,631.4	1
+rWEFOx	Western Foxsnake	Pantherophis vulpina	65	157	44,482,957.2	44,482,957.2	2
+rYBKIx	Yellow-bellied Kingsnake	Lampropeltis calligaster	95	227	117,678,015.8	117,678,015.8	30
+rYBSLx	Yellow-backed Spiny Lizard	Sceloporus uniformis	46	96	24,932,913.6	24,932,913.6	9
+rYHGEx	Yellow-headed Gecko	Gonatodes albogularis	9	23	199,244.3	199,244.3	3
